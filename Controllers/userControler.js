@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt')
-const userModel = require('../models/userModel')
+const userModel = require('../models/usermodel')
 const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
 const { default: axios } = require('axios');
 const forgotpassword = require('../helpers/forgotpassword');
+const usermodel = require('../models/usermodel');
 
 //signup register
 
@@ -77,7 +78,7 @@ exports.login=async(req,res)=>{
     const{email,password}=req.body
     
     try{
-        const existingUser=await userModel.findOne({email})
+        const existingUser=await usermodel.findOne({email})
         if(existingUser){
             const result=await bcrypt.compare(password,existingUser.password)
             if(result){
@@ -99,7 +100,7 @@ exports.otpresend=async(req,res)=>{
     const {email}=req.body
 
     try{
-        const existingUser=await userModel.findOne({email})
+        const existingUser=await usermodel.findOne({email})
         if(!existingUser){
             return res.status(404).send({message:'user not found'})
         }
