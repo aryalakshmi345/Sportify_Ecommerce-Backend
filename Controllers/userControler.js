@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const userModel = require('../models/usermodel')
+const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
 const { default: axios } = require('axios');

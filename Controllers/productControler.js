@@ -3,7 +3,7 @@ const AdminMiddleware = require("../middleware/Adminmiddleware");
 const jwtMiddleware = require("../middleware/Jwtmiddleware");
 const productModel = require("../models/productModel");
 const router = require("../Routes/router");
-const userModel = require("../models/usermodel");
+const userModel = require("../models/userModel");
 const nodemailer = require('nodemailer');
 
 // const userModel = require('../models/usermodel')
