@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema({
         type:String
     },
     password:{
-        required:true,
         type:String
     },
     phonenumber:{
@@ -26,6 +25,17 @@ const userSchema = new mongoose.Schema({
     role:{
         type:String,
         default:0
+    },
+    otpexpires:{
+        type:Date
+    },
+    isverifed:{
+        required:true,
+        type:Boolean,
+        default:false
+    },
+    otp:{
+        type:String
     }
 })
 

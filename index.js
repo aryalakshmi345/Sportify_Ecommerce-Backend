@@ -15,7 +15,7 @@ server.use(router)
 server.use('/Uploads',express.static('Uploads'))
 
 // set ports
-const port=4000 || process.env.PORT
+const port= 8000 || process.env.PORT
 
 // start server
 server.listen(port,()=>{

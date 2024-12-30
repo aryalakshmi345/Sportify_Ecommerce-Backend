@@ -1,4 +1,5 @@
 const mongoose=require('mongoose')
+const { review } = require('../Controllers/productControler')
 
 const productSchema=new mongoose.Schema({
     name:{
@@ -13,6 +14,7 @@ const productSchema=new mongoose.Schema({
         required:true,
         type:Number
     },
+    
     description:{
         required:true,
         type:String
@@ -28,8 +30,22 @@ const productSchema=new mongoose.Schema({
     material:{
         required:true,
         type:String
-    }
+    },
+    reviews:[
+        {
+            review:{
+                type:String
+            },
+            username:{
+                type:String
+            },
+            rating:{
+                type:String
+            }
+        }
+    ]
 })
+
 
 const productModel=mongoose.model('productModel',productSchema)
 module.exports=productModel
