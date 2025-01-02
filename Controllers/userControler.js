@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
 const { default: axios } = require('axios');
 const forgotpassword = require('../helpers/forgotpassword');
-const usermodel = require('../models/usermodel');
+const userModel = require('../models/userModel');
 
 //signup register
 
@@ -77,7 +77,7 @@ exports.login=async(req,res)=>{
     const{email,password}=req.body
     
     try{
-        const existingUser=await usermodel.findOne({email})
+        const existingUser=await userModel.findOne({email})
         if(existingUser){
             const result=await bcrypt.compare(password,existingUser.password)
             if(result){

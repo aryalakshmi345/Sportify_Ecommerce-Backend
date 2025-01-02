@@ -4,7 +4,7 @@ const jwtMiddleware = require("../middleware/Jwtmiddleware");
 const productModel = require("../models/productModel");
 const router = require("../Routes/router");
 const nodemailer = require('nodemailer');
-const usermodel = require("../models/usermodel");
+const userModel = require("../models/userModel");
 
 // const userModel = require('../models/usermodel')
 
@@ -177,7 +177,7 @@ exports.review = async (req, res) => {
 
     try {
         // Fetch user details
-        const userDetails = await usermodel.findById(id);
+        const userDetails = await userModel.findById(id);
 
         // Fetch product details
         const product = await productModel.findById(productid);
