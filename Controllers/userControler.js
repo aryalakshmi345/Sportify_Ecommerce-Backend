@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
 const { default: axios } = require('axios');
 const forgotpassword = require('../helpers/forgotpassword');
-const User = require('../models/usermodel');
+const User = require('../models/userModel');
 
 //signup register
 

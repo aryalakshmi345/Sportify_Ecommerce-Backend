@@ -4,7 +4,7 @@ const jwtMiddleware = require("../middleware/Jwtmiddleware");
 const productModel = require("../models/productModel");
 const router = require("../Routes/router");
 const nodemailer = require('nodemailer');
-const User = require('../models/usermodel');
+const User = require('../models/userModel');
 
 // const userModel = require('../models/usermodel')
 
