@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
 const { default: axios } = require('axios');
 const forgotpassword = require('../helpers/forgotpassword');
-const userModel = require('../models/userModel');
+const User = require('../models/usermodel');
 
 //signup register
 
@@ -14,7 +14,7 @@ exports.register = async(req,res)=>{
         res.status(400).send("plese fill the form")
     }else{
         try{
-            const existingUser = await userModel.findOne({email})
+            const existingUser = await User.findOne({email})
             if(existingUser){
                 res.status(409).send({message:'Already registered..please login'})
             }else{
@@ -23,7 +23,7 @@ exports.register = async(req,res)=>{
                 const otp=otpGenerator.generate(6, {digits:true,lowerCaseAlphabets:false, upperCaseAlphabets: false, specialChars: false });
                 const otpexpires=new Date(Date.now()+2*60*1000)
 
-                const newUser =  new userModel({
+                const newUser =  new User({
                     firstname:fname,secondname:sname,email,password:hashpassword,phonenumber:'',profilepicture:'',otpexpires,otp
                 })
                 await newUser.save()
@@ -47,7 +47,7 @@ exports.otpverification=async(req,res)=>{
         if(!email || !otp){
             return res.status(400).send({message:'invalid email and otp'})
         }
-        const existingUser=await userModel.findOne({email})
+        const existingUser=await User.findOne({email})
 
         if(!existingUser){
             return res.status(404).send({message:'user not found'})
@@ -77,7 +77,7 @@ exports.login=async(req,res)=>{
     const{email,password}=req.body
     
     try{
-        const existingUser=await userModel.findOne({email})
+        const existingUser=await User.findOne({email})
         if(existingUser){
             const result=await bcrypt.compare(password,existingUser.password)
             if(result){
@@ -99,7 +99,7 @@ exports.otpresend=async(req,res)=>{
     const {email}=req.body
 
     try{
-        const existingUser=await usermodel.findOne({email})
+        const existingUser=await User.findOne({email})
         if(!existingUser){
             return res.status(404).send({message:'user not found'})
         }
@@ -138,7 +138,7 @@ exports.googleSignIn=async(req,res)=>{
         const existingUser = await userModel.findOne({email})
 
         if(!existingUser){
-            const newUser =  new userModel({
+            const newUser =  new User({
                 firstname:fname,secondname:sname,email,password:"",phonenumber:'',profilepicture:profilepicture,otpexpires:'',otp:'',isverifed:true
             })
             await newUser.save()
@@ -159,7 +159,7 @@ exports.forgotPassword = async (req, res) => {
 
     try {
 
-        const existingUser = await userModel.findOne({ email });
+        const existingUser = await User.findOne({ email });
         if (!existingUser) {
             return res.status(404).send({ message: 'Account not found' });
         }
@@ -185,7 +185,7 @@ exports.updatePassword = async (req, res) => {
       const decodedToken = jwt.verify(token, 'supersecretkey');
   
       // Find the user by ID
-      const existingUser = await userModel.findById(decodedToken.id);
+      const existingUser = await User.findById(decodedToken.id);
   
       if (!existingUser) {
         return res.status(404).send('User not found');
@@ -208,7 +208,7 @@ exports.updatePassword = async (req, res) => {
 //   get all users for admin
   exports.getAllusers=async(req,res)=>{
     try{
-        const response=await userModel.find({role:{$ne:1}})
+        const response=await User.find({role:{$ne:1}})
         res.status(200).send(response)
 
     }catch(error){
